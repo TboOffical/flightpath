@@ -1,0 +1,87 @@
+package main
+
+import (
+	"encoding/json"
+	"errors"
+	"fmt"
+	"log"
+)
+
+// build application infrastructure
+func buildPaths() error {
+	log.Println("Building Paths")
+	e("Path Loading Started")
+
+	//load the paths from the db
+	var paths []Path
+	tx := db.Find(&paths).Limit(200)
+	if tx.Error != nil {
+		return tx.Error
+	}
+
+	numPaths := len(paths)
+
+	for i, path := range paths {
+		e(fmt.Sprint("Building Path ", i+1, "/", numPaths))
+		err = loadPathFromBytesAndCreate(path.Data)
+		if err != nil {
+			log.Println("Error building Path:", err)
+			e(fmt.Sprint("Failed to build path with index", i))
+			return err
+		}
+	}
+
+	return nil
+}
+
+// create the correct pathway in the system from the .json path config data
+func loadPathFromBytesAndCreate(data string) error {
+	var dataObject map[string]interface{}
+	err := json.Unmarshal([]byte(data), &dataObject)
+
+	if err != nil {
+		return err
+	}
+
+	pathName := fmt.Sprint(dataObject["title"])
+	e(fmt.Sprint("Building ", pathName, "..."))
+
+	if dataObject["nodes"] == nil {
+		return errors.New("invalid path syntax: no nodes detected in map")
+	}
+
+	nodes := dataObject["nodes"].([]interface{})
+
+	for _, node := range nodes {
+		n, err := newNodeFromInterface(node)
+		if err != nil {
+			return err
+		}
+
+		//if the node is an inlet, create an inlet
+
+		if n.Type == NodeTypeInlet {
+			switch n.Module {
+			case "pushbullet":
+				i := newPushbulletInlet(n.ID)
+				i.Configure(n.Config)
+				err = i.Start()
+				if err != nil {
+					return err
+				}
+			case "time_trigger":
+				i := newTimeTriggerInlet(n.ID)
+				i.Configure(n.Config)
+				err = i.Start()
+				if err != nil {
+					return err
+				}
+			default:
+				return errors.New("module not found, if you just added this module make sure to add it to the this list")
+			}
+		}
+
+	}
+
+	return nil
+}

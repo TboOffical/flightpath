@@ -1,0 +1,35 @@
+{
+  "title": "Testing Path",
+  "nodes": [
+    {
+      "id": "in_pushbullet_9024",
+      "type": "inlet",
+      "module": "pushbullet",
+      "config": {
+        "api_key": "api_key_here"
+      }
+    },
+    {
+      "id": "mod_prefix_0022",
+      "type": "modifier",
+      "module": "text",
+      "task": "prefix",
+      "listen_from": ["in_pushbullet_9024"],
+      "config": {
+        "prefix": "New Message:"
+      }
+    },
+    {
+      "id": "outlet_email",
+      "type": "outlet",
+      "module": "email",
+      "listen_from": ["mod_prefix_0022"],
+      "config": {
+        "server_address": "",
+        "server_username": "",
+        "server_password": "",
+        "server_encryption": ""
+      }
+    }
+  ]
+}
