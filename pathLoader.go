@@ -58,6 +58,11 @@ func loadPathFromBytesAndCreate(data string) error {
 			return err
 		}
 
+		//make sure the node has an ID
+		if len(n.ID) == 0 {
+			return errors.New("invalid path syntax: no id detected in node config")
+		}
+
 		//if the node is an inlet, create an inlet
 
 		if n.Type == NodeTypeInlet {
@@ -78,6 +83,22 @@ func loadPathFromBytesAndCreate(data string) error {
 				}
 			default:
 				return errors.New("module not found, if you just added this module make sure to add it to the this list")
+			}
+		}
+
+		//if it's a modifier, create the modifier
+
+		if n.Type == NodeTypeModifier {
+			switch n.Module {
+			case "text":
+				i := newTextModifier(n.ID, n.Task, n.ListenFrom)
+				i.Configure(n.Config)
+				err = i.Start()
+				if err != nil {
+					return err
+				}
+			default:
+				return errors.New("module not found")
 			}
 		}
 

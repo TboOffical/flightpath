@@ -11,6 +11,7 @@ type AppConfig struct {
 	DefaultApiKey              string `json:"defaultApiKey"`
 	EnableDBEventLogging       bool   `json:"enableDbEventLogging"`
 	EnableChatterEventPrinting bool   `json:"enableChatterEventPrinting"`
+	EnableDebugLogging         bool   `json:"enableDebugLogging"`
 }
 
 func (conf *AppConfig) loadConfig() error {

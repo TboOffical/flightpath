@@ -1,11 +1,27 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"log"
+	"time"
+)
 
 func timeTriggerPublisher(opts map[string]interface{}, id string) {
 	fmt.Println(opts)
-	for {
 
+	if opts["delay"] == nil {
+		log.Println("delay option is required")
+		return
+	}
+
+	delay := opts["delay"].(int)
+
+	for {
+		time.Sleep(time.Duration(delay) * time.Millisecond)
+		incoming <- IncomingMessage{
+			From:    id,
+			Message: "{\"message\": \"tick\"}",
+		}
 	}
 }
 

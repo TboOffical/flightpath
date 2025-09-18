@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 
 	"gorm.io/gorm"
@@ -48,5 +49,15 @@ func printChatter() {
 				log.Println("EC|", msg)
 			}
 		}
+	}
+}
+
+// d logs something to the debug log
+func d(items ...interface{}) {
+	if config.EnableDebugLogging {
+		for _, i := range items {
+			fmt.Print(i)
+		}
+		fmt.Print("\n")
 	}
 }

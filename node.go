@@ -16,7 +16,7 @@ type Node struct {
 	Type       int
 	Module     string
 	Task       string
-	ListenFrom string
+	ListenFrom []string
 	Config     map[string]interface{}
 }
 
@@ -38,11 +38,11 @@ func newNodeFromInterface(ni interface{}) (*Node, error) {
 	case "inlet":
 		n.Type = NodeTypeInlet
 	case "modifier":
-		n.ListenFrom = fmt.Sprint(node["listen_from"])
+		n.ListenFrom = int_list_to_strings(node["listen_from"].([]interface{}))
 		n.Type = NodeTypeModifier
 		n.Task = fmt.Sprint(node["task"])
 	case "outlet":
-		n.ListenFrom = fmt.Sprint(node["listen_from"])
+		n.ListenFrom = int_list_to_strings(node["listen_from"].([]interface{}))
 		n.Type = NodeTypeOutlet
 	default:
 		return nil, errors.New("node type is invalid: should be inlet, modifier or outlet")
