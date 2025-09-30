@@ -1,0 +1,30 @@
+
+# Flightpath, the data Automator
+**Not a node red clone; flightpath is for moving data, not logic!**
+
+
+
+## Features
+* Move you data around easily
+* Completely Realtime
+* Very Multithreaded
+* Easy to use UI (Windows only for now)
+* ARM Native!
+* Easily expandable
+
+## Setup
+1. Get the server for your platform
+2. Change the config so the api key is something **other than test**
+3. Run the server
+4. Run the UI and add the server, http://localhost:3000 should be the default path
+5. Edit your path
+
+## Screenshots
+
+
+## To-Do
+
+ - [ ] Add support to the UI for adding paths (svelte)
+ - [ ] Redesign the node creation api (go)
+ - [ ] Fix random UI bugs (svelte)
+ - [ ] More configuration options (go)
