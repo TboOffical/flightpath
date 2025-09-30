@@ -21,6 +21,9 @@
 
 ## Screenshots
 
+<img src="./home.png">
+<img src="./editor.png">
+
 
 ## To-Do
 
