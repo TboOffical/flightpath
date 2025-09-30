@@ -1,0 +1,6 @@
+{
+  "defaultApiKey": "test",
+  "enableDbEventLogging": false,
+  "enableChatterEventPrinting": true,
+  "enableDebugLogging": false
+}

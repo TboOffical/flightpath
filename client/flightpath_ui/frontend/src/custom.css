@@ -1,0 +1,21 @@
+.svelte-flow__node {
+    color: black !important;
+}
+
+
+.svelte-flow__controls-button{
+    background-color: rgba(0, 0, 0, 0.66) !important;
+    border-radius: 5px;
+    margin: 1px;
+    padding: 1px;
+    backdrop-filter: blur(2px);
+}
+
+.svelte-flow__controls{
+    border: none !important;
+    box-shadow: none;
+}
+
+.svelte-flow__attribution{
+    display: none;
+}

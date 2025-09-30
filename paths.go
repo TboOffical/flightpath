@@ -1,6 +1,10 @@
 package main
 
 import (
+	"encoding/base64"
+	"encoding/json"
+	"fmt"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/log"
 	"gorm.io/gorm"
@@ -20,6 +24,32 @@ func getPathsHandler(c *fiber.Ctx) error {
 	db.Find(&paths)
 
 	return c.JSON(paths)
+}
+
+type updatePathParams struct {
+	ID       int    `json:"id"`
+	PathData string `json:"path_data"`
+}
+
+func updatePathHandler(c *fiber.Ctx) error {
+	fmt.Println(string(c.Body()))
+
+	p := updatePathParams{}
+	err := json.Unmarshal(c.Body(), &p)
+	if err != nil {
+		return err
+	}
+
+	path := Path{}
+
+	db.First(&path).Where("id = ?", p.ID)
+
+	dataString, _ := base64.StdEncoding.DecodeString(p.PathData)
+	path.Data = string(dataString)
+
+	db.Save(&path)
+
+	return c.JSON(path)
 }
 
 func createPathHandler(c *fiber.Ctx) error {

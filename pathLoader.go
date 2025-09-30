@@ -102,6 +102,25 @@ func loadPathFromBytesAndCreate(data string) error {
 			}
 		}
 
+		//finally, if it's an outlet, create that
+		/*todo: late on make sure all of this is not manual, since the starting procedure is the same for all of the types
+		  todo: it can just loop through an array of modules and start the ones that are needed
+		*/
+
+		if n.Type == NodeTypeOutlet {
+			switch n.Module {
+			case "email":
+				i := newEmailOutlet(n.ID, n.ListenFrom)
+				i.Configure(n.Config)
+				err = i.Start()
+				if err != nil {
+					return err
+				}
+			default:
+				return errors.New("module not found")
+			}
+		}
+
 	}
 
 	return nil

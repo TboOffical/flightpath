@@ -36,3 +36,19 @@ func newTextModifier(id string, task string, listenFrom []string) *ModifierModul
 		configured: false,
 	}
 }
+
+func registerTextModifier() {
+	e := newDocsEntry("text", NodeTypeModifier)
+	e.AddTask(Task{
+		Name: "prefix",
+		Params: []ParamDoc{
+			{
+				ParamName:        "prefix",
+				ParamType:        "string",
+				ParamDescription: "What text to add to the input",
+				ParamJsonField:   "prefix",
+			},
+		},
+	})
+	AppDocs = append(AppDocs, e)
+}

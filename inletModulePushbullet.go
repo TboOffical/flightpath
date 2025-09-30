@@ -90,6 +90,10 @@ func pushbulletPublisher(opts map[string]interface{}, id string) {
 				log.Println(err)
 			}
 
+			if len(push.Pushes) == 0 {
+				return
+			}
+
 			pushDataJson, _ := json.Marshal(push.Pushes[0])
 
 			incoming <- IncomingMessage{
@@ -108,4 +112,10 @@ func newPushbulletInlet(id string) *InletModule {
 		Name:      "pushbullet",
 		Publisher: pushbulletPublisher,
 	}
+}
+
+func registerPushbullet() {
+	e := newDocsEntry("pushbullet", NodeTypeInlet)
+	e.AddParam("API Key", "string", "Your pushbullet API Key", "api_key")
+	AppDocs = append(AppDocs, e)
 }

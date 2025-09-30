@@ -32,3 +32,9 @@ func newTimeTriggerInlet(id string) *InletModule {
 		Publisher: timeTriggerPublisher,
 	}
 }
+
+func registerTimeTrigger() {
+	e := newDocsEntry("time_trigger", NodeTypeInlet)
+	e.AddParam("Delay", "int", "Time between ticks", "delay")
+	AppDocs = append(AppDocs, e)
+}

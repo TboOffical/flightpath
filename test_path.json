@@ -25,10 +25,12 @@
       "module": "email",
       "listen_from": ["mod_prefix_0022"],
       "config": {
-        "server_address": "",
-        "server_username": "",
-        "server_password": "",
-        "server_encryption": ""
+        "to_address": "wireman272@gmail.com",
+        "subject": "Test Email",
+        "server_address": "smtp.zoho.com",
+        "server_port": 465,
+        "server_username": "info@chfservices.com ",
+        "server_password": "xcg8b%qU"
       }
     }
   ]
