@@ -12,12 +12,13 @@
 * ARM Native!
 * Easily expandable
 
-## Setup
+## HOW TO RUN (previously setup)
 1. Get the server for your platform
 2. Change the config so the api key is something **other than test**
 3. Run the server
 4. Run the UI and add the server, http://localhost:3000 should be the default path
 5. Edit your path
+
 
 ## Screenshots
 
