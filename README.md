@@ -15,10 +15,10 @@
 ## HOW TO RUN (previously setup)
 1. Get the server for your platform
 2. Copy the config from this repo
-3. Change the config so the api key is something **other than test**
-4. Run the server
-5. Run the UI and add the server, http://localhost:3000 should be the default path
-6. Edit your path
+4. Change the config so the api key is something **other than test**
+5. Run the server
+6. Run the UI and add the server, http://localhost:3000 should be the default path
+7. Edit your path
 
 
 ## Screenshots
